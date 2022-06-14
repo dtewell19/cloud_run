@@ -51,7 +51,7 @@ jobs:
       run: terraform show -json tfplan.binary > tfplan.json
 
     - name: show plan
-      id: show plan
+      id: cat
       run: cat tfplan.json
 
     - name: run opa tests
