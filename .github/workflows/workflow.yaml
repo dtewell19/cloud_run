@@ -44,6 +44,10 @@ jobs:
       env:
         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 
+    - name: terraform show
+      id: show
+      run: terraform show -json tfplan.binary > tfplan.json
+
     - name: install conftest
       run: |
         LATEST_VERSION="0.32.1"
