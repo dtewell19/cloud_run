@@ -35,6 +35,9 @@ jobs:
       uses: open-policy-agent/setup-opa@v1
       with:
         version: latest
+
+    - name: setup conftest
+      uses: instrumenta/conftest-action@master
     
     - name: terraform fmt
       id: fmt
@@ -57,5 +60,4 @@ jobs:
       run: terraform show -json tfplan.binary > tfplan.json
 
     - name: run opa tests
-      uses: instrumenta/conftest-action@master
       run: conftest test -d policy/ tfplan.json
