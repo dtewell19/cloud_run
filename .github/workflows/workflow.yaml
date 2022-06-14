@@ -48,6 +48,10 @@ jobs:
       id: show
       run: terraform show -json tfplan.binary >> tfplan.json
 
+    - name: json fmt
+      id: show
+      run: cat tfplan.json | jq >> tf.json
+
     - name: install conftest
       run: |
         LATEST_VERSION="$(wget -O - "https://api.github.com/repos/open-policy-agent/conftest/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)"
@@ -56,4 +60,4 @@ jobs:
         sudo mv conftest /usr/local/bin
     
     - name: run opa
-      run: conftest test -o "stdout" -p "policy" --namespace "main" tfplan.json
+      run: conftest test -o "stdout" -p "policy" --namespace "main" tf.json
