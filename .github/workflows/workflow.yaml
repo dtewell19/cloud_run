@@ -51,6 +51,6 @@ jobs:
       run: terraform show -json tfplan.binary > tfplan.json
 
     - name: run opa tests
-      uses: instrumenta/conftest-action@master
+      uses: YubicoLabs/action-conftest@v2
       with:
         files: tfplan.json
