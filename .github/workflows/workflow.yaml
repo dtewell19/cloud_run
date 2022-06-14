@@ -33,6 +33,8 @@ jobs:
     - name: terraform init
       id: init
       run: terraform init
+      env:
+        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 
     - name: terraform validate
       id: validate
@@ -41,6 +43,8 @@ jobs:
     - name: terraform plan
       id: plan
       run: terraform plan --out tfplan.binary
+      env:
+        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 
     - name: terraform show
       run: terraform show -json tfplan.binary > tfplan.json
