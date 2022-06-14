@@ -7,19 +7,8 @@ on:
   pull_request:
 
 jobs:
-  run-opa:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out repository code
-      uses: actions/checkout@v2
-
-
-
-    - name: Run OPA Tests 
-      run: conftest test -d policy/ tfplan.json
-
   terraform-plan:
-    name: 'Terraform'
+    name: 'terraform format & plan'
     runs-on: ubuntu-latest
 
     steps:
