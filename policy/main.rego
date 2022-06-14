@@ -21,7 +21,7 @@ tags_contain_minimum_set[i] = resources {
 
 deny[msg] {
     changeset := input.resource_changes[_]
-    changeset.provider_name == "registry.terraform.io/hashicorp/aws"
+    changeset.provider_name == "registry.terraform.io/hashicorp/google"
     split(changeset.address, ".")[0] != "data"
 
     required_tags := {"apm_id", "dept", "environment"}
