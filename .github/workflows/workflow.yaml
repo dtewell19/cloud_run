@@ -48,11 +48,7 @@ jobs:
 
     - name: terraform show
       id: show
-      run: terraform show -json tfplan.binary > tfplan.json
-
-    - name: terraform cat
-      id: cat
-      run: cat tfplan.json
+      run: terraform show -json ./tfplan.binary | jq > tfplan.json
 
     - name: install conftest
       run: |
