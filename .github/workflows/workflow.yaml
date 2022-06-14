@@ -47,6 +47,7 @@ jobs:
         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 
     - name: terraform show
+      id: show
       run: terraform show -json tfplan.binary > tfplan.json
 
     - name: run opa tests
