@@ -9,7 +9,7 @@ on:
 jobs:
   terraform-plan:
     name: 'terraform format & plan'
-    runs-on: ubuntu-latest
+    runs-on: alpine-latest
 
     steps:
     - name: checkout source code
