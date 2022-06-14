@@ -50,6 +50,10 @@ jobs:
       id: show
       run: terraform show -json tfplan.binary > tfplan.json
 
+    - name: terraform cat
+      id: cat
+      run: cat tfplan.json
+
     - name: install conftest
       run: |
         LATEST_VERSION=$(wget -O - "https://api.github.com/repos/open-policy-agent/conftest/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)
