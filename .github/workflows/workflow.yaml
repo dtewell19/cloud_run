@@ -49,7 +49,7 @@ jobs:
       run: terraform show -json tfplan.binary >> tfplan.json
 
     - name: json fmt
-      id: show
+      id: format
       run: cat tfplan.json | jq >> tf.json
 
     - name: install conftest
