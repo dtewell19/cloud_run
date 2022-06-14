@@ -50,7 +50,7 @@ jobs:
 
     - name: terraform cat
       id: cat
-      run: cat tfplan.json | jq > tf.json
+      run: cat tfplan.json 
 
     - name: install conftest
       run: |
@@ -60,4 +60,4 @@ jobs:
         sudo mv conftest /usr/local/bin
     
     - name: run opa
-      run: conftest test -o "stdout" -p "policy" --namespace "main" tf.json 
+      run: conftest test -o "stdout" -p "policy" --namespace "main" tfplan.json 
