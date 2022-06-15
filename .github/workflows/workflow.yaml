@@ -78,3 +78,4 @@ jobs:
         iac_type: 'terraform'
         iac_version: 'v14'
         policy_type: 'gcp'
+        non_recursive: true
