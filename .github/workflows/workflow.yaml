@@ -62,3 +62,19 @@ jobs:
       if: always() # always run even if the previous step fails
       with:
         report_paths: '*.xml'
+  
+  terrascan_job:
+    runs-on: ubuntu-latest
+    name: terrascan-action
+
+    steps:
+    - name: checkout source code
+      uses: actions/checkout@v2
+
+    - name: run terrascan
+      id: terrascan
+      uses: tenable/terrascan-action@main
+      with:
+        iac_type: 'terraform'
+        iac_version: 'v14'
+        policy_type: 'gcp'
