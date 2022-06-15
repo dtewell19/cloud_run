@@ -7,9 +7,25 @@ on:
   pull_request:
 
 jobs:
-  terraform-plan:
-    name: 'terraform format & plan'
+  terraform_plan:
+    name: 'terraform opa test'
     runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout source code
+      uses: actions/checkout@v2
+
+    - name: terraform plan & show
+      id: plan_show
+      run: |
+        terraform init
+        terraform validate -no-color
+        terraform plan
+        
+  opa-test:
+    name: 'terraform opa test'
+    runs-on: ubuntu-latest
+    container: openpolicyagent/conftest:latest
 
     steps:
     - name: checkout source code
@@ -24,18 +40,6 @@ jobs:
         terraform show -json tfplan.binary > tfplan.json
       env:
         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-
-    - uses: actions/upload-artifact@v3
-      with:
-        name: tf-json
-        path: tfplan.json
-
-    - name: install conftest
-      run: |
-        LATEST_VERSION="$(wget -O - "https://api.github.com/repos/open-policy-agent/conftest/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)"
-        wget "https://github.com/open-policy-agent/conftest/releases/download/v${LATEST_VERSION}/conftest_${LATEST_VERSION}_Linux_x86_64.tar.gz"
-        tar xzf conftest_${LATEST_VERSION}_Linux_x86_64.tar.gz
-        sudo mv conftest /usr/local/bin
     
     - name: run opa
-      run: conftest test -o "stdout" -p "policy" --namespace "main" tfplan.json
+      run: conftest test -o "stdout" -p "policy" --namespace "main" tfplan.json --output=github
