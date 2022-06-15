@@ -141,6 +141,9 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
+    - name: tf fmt
+      uses: terraform fmt
+
     - name: render terraform docs and push changes back to PR
       uses: terraform-docs/gh-actions@main
       with:
