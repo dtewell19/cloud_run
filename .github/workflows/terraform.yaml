@@ -121,7 +121,7 @@ jobs:
           uses: actions/checkout@v2
 
         - name: terraform plan & show
-          id: plan_show
+          id: plan_show_pr
           run: |
             terraform init
             terraform validate -no-color
