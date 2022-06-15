@@ -1,0 +1,1 @@
+terraform show -json tfplan.binary > tfplan.json
