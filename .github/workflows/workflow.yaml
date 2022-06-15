@@ -49,10 +49,10 @@ jobs:
         tar xzf conftest_${LATEST_VERSION}_Linux_x86_64.tar.gz
         sudo mv conftest /usr/local/bin
     
-    - name: run opa
+    - name: run opa -github
       run: conftest test -o github -p "policy" --namespace "main" tfplan.json
 
-    - name: run opa
+    - name: run opa -junit
       run: conftest test -o junit -p "policy" --namespace "main" tfplan.json > results.xml
 
     - name: publish report
