@@ -47,7 +47,7 @@ jobs:
     - name: terraform show
       id: show
       run: |
-      terraform show -json tfplan.binary > tfplan.json
+        terraform show -json tfplan.binary > tfplan.json
 
     - uses: actions/upload-artifact@v3
       with:
