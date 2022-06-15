@@ -61,4 +61,4 @@ jobs:
         sudo mv conftest /usr/local/bin
     
     - name: run opa
-      run: conftest test -o "stdout" -p "policy" --namespace "main" tf.json
+      run: conftest test -o "stdout" -p "policy" --namespace "main" tfplan.json
