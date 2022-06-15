@@ -85,7 +85,7 @@ jobs:
       runs-on: ubuntu-latest
 
       env:
-        TF_ROOT: ./tfplan.json
+        TF_ROOT: .
 
       steps:
         - name: Setup Infracost
@@ -99,16 +99,6 @@ jobs:
           with:
             ref: '${{ github.event.pull_request.base.ref }}'
 
-        - name: terraform plan & show
-          id: plan_show
-          run: |
-            terraform init
-            terraform validate -no-color
-            terraform plan --out tfplan.binary
-            terraform show -json tfplan.binary > tfplan.json
-          env:
-            GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-
         # Generate Infracost JSON file as the baseline.
         - name: Generate Infracost cost estimate baseline
           run: |
@@ -119,16 +109,6 @@ jobs:
         # Checkout the current PR branch so we can create a diff.
         - name: Checkout PR branch
           uses: actions/checkout@v2
-
-        - name: terraform plan & show
-          id: plan_show_pr
-          run: |
-            terraform init
-            terraform validate -no-color
-            terraform plan --out tfplan.binary
-            terraform show -json tfplan.binary > tfplan.json
-          env:
-            GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 
         # Generate an Infracost diff and save it to a JSON file.
         - name: Generate Infracost diff
