@@ -11,7 +11,7 @@
       runs-on: ubuntu-latest
 
       env:
-        TF_ROOT: examples/terraform-project/code
+        TF_ROOT: .
 
       steps:
         - name: Setup Infracost
