@@ -46,7 +46,7 @@ jobs:
 
     - name: terraform show
       id: show
-      run: ./scripts/tf_show.sh
+      run: terraform show -json tfplan.binary | tee -a tfplan.json
 
     - uses: actions/upload-artifact@v3
       with:
