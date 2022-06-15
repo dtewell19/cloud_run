@@ -25,7 +25,7 @@ jobs:
         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 
   opa-test:
-    name: 'terraform opa test'
+    name: 'opa test'
     runs-on: ubuntu-latest
 
     steps:
@@ -50,4 +50,13 @@ jobs:
         sudo mv conftest /usr/local/bin
     
     - name: run opa
-      run: conftest test -o "stdout" -p "policy" --namespace "main" tfplan.json
+      run: conftest test -o github -p "policy" --namespace "main" tfplan.json
+
+    - name: run opa
+      run: conftest test -o junit -p "policy" --namespace "main" tfplan.json > results.xml
+
+    - name: publish report
+      uses: mikepenz/action-junit-report@v3
+      if: always() # always run even if the previous step fails
+      with:
+        report_paths: '*.xml'
