@@ -15,19 +15,6 @@ jobs:
     - name: checkout source code
       uses: actions/checkout@v2
 
-    - name: setup terraform
-      uses: hashicorp/setup-terraform@v2
-
-    - name: setup opa
-      uses: open-policy-agent/setup-opa@v1
-      with:
-        version: latest
-    
-    - name: terraform fmt
-      id: fmt
-      run: terraform fmt -check
-      continue-on-error: true
-
     - name: terraform plan & show
       id: plan_show
       run: |
@@ -37,7 +24,7 @@ jobs:
         terraform show -json tfplan.binary > tfplan.json
       env:
         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-        
+
     - uses: actions/upload-artifact@v3
       with:
         name: tf-json
