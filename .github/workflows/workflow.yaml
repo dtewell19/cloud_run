@@ -28,26 +28,16 @@ jobs:
       run: terraform fmt -check
       continue-on-error: true
 
-    - name: terraform init
-      id: init
-      run: terraform init
+    - name: terraform plan & show
+      id: plan_show
+      run: |
+        terraform init
+        terraform validate -no-color
+        terraform plan --out tfplan.binary
+        terraform show -json tfplan.binary > tfplan.json
       env:
         GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-
-    - name: terraform validate
-      id: validate
-      run: terraform validate -no-color
-
-    - name: terraform plan
-      id: plan
-      run: terraform plan --out tfplan.binary
-      env:
-        GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
-
-    - name: terraform show
-      id: show
-      run: terraform show -json tfplan.binary | tee -a tfplan.json
-
+        
     - uses: actions/upload-artifact@v3
       with:
         name: tf-json
