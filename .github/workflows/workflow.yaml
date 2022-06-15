@@ -48,9 +48,10 @@ jobs:
       id: show
       run: terraform show -json tfplan.binary >> tfplan.json
 
-    - name: json fmt
-      id: format
-      run: cat tfplan.json | jq >> tf.json
+    - uses: actions/upload-artifact@v3
+      with:
+        name: tf-json
+        path: tfplan.json
 
     - name: install conftest
       run: |
