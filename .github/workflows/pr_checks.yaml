@@ -97,6 +97,10 @@ jobs:
             ref: '${{ github.event.pull_request.base.ref }}'
 
         # Generate Infracost JSON file as the baseline.
+        - name: generate infracost cost estimate baseline - test
+          run: |
+            infracost breakdown --path=${TF_ROOT} 
+
         - name: generate infracost cost estimate baseline
           run: |
             infracost breakdown --path=${TF_ROOT} \
