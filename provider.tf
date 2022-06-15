@@ -7,8 +7,3 @@ terraform {
   }
 }
 
-provider "google" {
-  # Replace `PROJECT_ID` with your project
-  project = "erudite-bonbon-324020"
-  region  = "us-east1"
-}
