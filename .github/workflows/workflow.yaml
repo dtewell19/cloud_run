@@ -55,7 +55,7 @@ jobs:
 
     - name: run opa -junit
       run: conftest test -o junit -p "policy" --namespace "main" tfplan.json > results.xml
-      continue-on-error: true
+      continue-on-error: false
 
     - name: publish report
       uses: mikepenz/action-junit-report@v3
