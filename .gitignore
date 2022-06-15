@@ -5,3 +5,4 @@ tfplan.json
 **/.infracost/*
 .infracost/*
 **/.terraform/*
+.terraform.lock.hcl
