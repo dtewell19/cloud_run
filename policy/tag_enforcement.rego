@@ -13,10 +13,10 @@ tags_pascal_case[i] = resources {
     resources := [resource | resource := module_address[i]; val := tags[key]; not tags_validation.key_val_valid_pascal_case(key, val)]
 }
 
-tags_contain_minimum_set[i] = resources {
-    changeset := input.resource_changes[i]
-    tags := changeset.change.after.tags
-    resources := [resource | resource := module_address[i]; not tags_validation.tags_contain_proper_keys(changeset.change.after.tags)]
+deny[msg] {
+    resources := tags_pascal_case[_]
+    resources != []
+    msg := sprintf("Invalid tags (not pascal case) for the following resources: %v", [resources])
 }
 
 deny[msg] {
@@ -24,7 +24,7 @@ deny[msg] {
     changeset.provider_name == "registry.terraform.io/hashicorp/google"
     split(changeset.address, ".")[0] != "data"
 
-    required_tags := {"apm_id", "dept", "environment"}
+    required_tags := {"Environment", "Project"}
     provided_tags := {tag | changeset.change.after.tags_all[tag]}
     missing_tags := required_tags - provided_tags
 
@@ -34,10 +34,4 @@ deny[msg] {
         changeset.address,
         concat(", ", missing_tags),
     ])
-}
-
-deny[msg] {
-    resources := tags_pascal_case[_]
-    resources != []
-    msg := sprintf("Invalid tags (not pascal case) for the following resources: %v", [resources])
 }
